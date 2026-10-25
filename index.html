@@ -691,12 +691,12 @@
 
       const form = document.getElementById('appsScriptForm');
       const endpoint = APPS_SCRIPT_URL;
-      if (!endpoint) {
-        btn.disabled = false;
-        btn.textContent = 'Kirim Kuesioner';
-        showError('Alamat Web App Google Apps Script belum dipasang. Hubungi peneliti.');
-        return;
-      }
+      if (!endpoint || !endpoint.startsWith('https://script.google.com/macros/s/')) {
+  btn.disabled = false;
+  btn.textContent = 'Kirim Kuesioner';
+  showError('URL Google Apps Script tidak valid. Silakan hubungi peneliti.');
+  return;
+}
 
       form.action = endpoint;
       document.getElementById('payloadField').value = JSON.stringify(data);
