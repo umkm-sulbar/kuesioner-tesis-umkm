@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kuesioner Tesis UMKM Sulawesi Barat</title>
+  <style>
+    :root {
+  --green: #800020;
+  --green2: #9B2242;
+  --light: #F8F2F4;
+  --text: #33242A;
+  --muted: #78666D;
+  --border: #E8DDE1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--light);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .hero {
+      background: linear-gradient(135deg, #5B1026, #800020);
+      color: white;
+      padding: 28px 20px 34px;
+      border-radius: 0 0 26px 26px;
+    }
+    .hero-inner, main {
+      max-width: 720px;
+      margin: auto;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      font-weight: bold;
+      opacity: .85;
+    }
+    h1 {
+      font-size: clamp(25px, 6vw, 34px);
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
+    .hero p { margin: 0; opacity: .92; }
+    main { padding: 18px 14px 42px; }
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 21px;
+      margin-bottom: 16px;
+      box-shadow: 0 5px 18px rgba(91, 16, 38, .06);
+    }
+    h2 { font-size: 20px; margin: 0 0 6px; }
+    h3 { font-size: 16px; margin: 0 0 12px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .welcome-message {
+      margin-top: 16px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .welcome-message p { margin: 0 0 12px; }
+    .welcome-message p:last-child { margin-bottom: 0; }
+    .welcome-message strong { color: var(--green); }
+    .welcome-message em { color: var(--text); }
+    .welcome-message {
+      margin-top: 18px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .welcome-message h3 {
+      color: var(--green);
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+    .welcome-message p { margin: 0 0 12px; }
+    .welcome-message em { color: var(--green); }
+    h2, h3, .section-tag, .q-number {
+      color: var(--green);
+    }
+    .notice {
+      background: #F8F2F4;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 13px;
+      margin-top: 14px;
+    }
+    .field { margin-top: 17px; }
+    label.field-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+    input[type="text"], select {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 12px;
+      border: 1px solid #D8C7CD;
+      border-radius: 10px;
+      background: white;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .choice-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      cursor: pointer;
+      min-height: 46px;
+      font-size: 14px;
+    }
+    .choice:has(input:checked) {
+      border-color: var(--green2);
+      background: #F1E3E8;
+    }
+    input[type="radio"], input[type="checkbox"] {
+      accent-color: var(--green2);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin: 1px 0 0;
+    }
+    .progress-card { padding: 16px 20px; }
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+    .progress-track {
+      height: 7px;
+      background: #E8DDE1;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--green2);
+      transition: width .2s;
+    }
+    .section-tag {
+      color: var(--green2);
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .question {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 15px 12px;
+      margin-top: 12px;
+    }
+    .q-title {
+      font-weight: 600;
+      margin-bottom: 13px;
+      display: flex;
+      gap: 8px;
+    }
+    .q-number { color: var(--green2); min-width: 23px; }
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .scale label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 59px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 10px;
+      text-align: center;
+      padding: 6px 2px;
+    }
+    .scale label:has(input:checked) {
+      border-color: var(--green2);
+      color: var(--green);
+      background: #F1E3E8;
+      font-weight: bold;
+    }
+    .scale input { accent-color: var(--green2); }
+    .scale strong { font-size: 16px; }
+    .scale-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    .actions { display: grid; gap: 10px; margin-top: 18px; }
+    button {
+      border: 0;
+      border-radius: 12px;
+      min-height: 49px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .primary { background: var(--green); color: white; }
+    .secondary { background: #F8F2F4; color: var(--green); }
+    button:disabled { opacity: .55; cursor: wait; }
+    .hidden { display: none !important; }
+    .error {
+      background: #fff0ef;
+      color: #a52d25;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+    .success { text-align: center; padding: 32px 18px; }
+    .success-icon {
+      width: 70px; height: 70px; margin: 0 auto 18px;
+      display: grid; place-items: center;
+      border-radius: 50%; background: #F1E3E8;
+      color: var(--green); font-size: 34px;
+    }
+    .thank-you-message {
+      max-width: 680px;
+      margin: 14px auto;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .thank-you-message strong { color: var(--green); }
+    .thank-you-closing {
+      margin: 16px auto 10px;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .thank-you-greeting {
+      margin: 14px auto 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+    footer { text-align: center; color: var(--muted); font-size: 12px; padding: 5px 15px 20px; }
+    @media (max-width: 430px) {
+      .hero { padding: 23px 17px 29px; }
+      main { padding: 14px 10px 30px; }
+      .card { padding: 17px 14px; border-radius: 15px; }
+      .choice-list { grid-template-columns: 1fr; }
+      .scale { gap: 4px; }
+      .scale label { font-size: 9px; min-height: 57px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand">
+        <div>
+          <div class="eyebrow">SURVEI PENELITIAN TESIS</div>
+          <strong>MAGISTER MANAJEMEN</strong>
+        </div>
+      </div>
+      <h1>UMKM Naik Kelas<br>Sulawesi Barat</h1>
+      <p>Pelatihan Peningkatan Kapasitas, transformasi digital, dan inovasi untuk pengembangan usaha.</p>
+    </div>
+  </header>
+
+  <!-- Endpoint Apps Script akan diisi setelah Code.gs memiliki doPost(e). -->
+  <iframe name="appsScriptFrame" id="appsScriptFrame" class="hidden" title="Pengiriman jawaban"></iframe>
+  <form id="appsScriptForm" method="POST" target="appsScriptFrame" class="hidden">
+    <input type="hidden" name="payload" id="payloadField">
+  </form>
+
+  <main>
+    <div id="survey">
+      <section class="card">
+        <div class="section-tag">SELAMAT DATANG</div>
+        <h2>Kuesioner Penelitian</h2>
+        <div class="welcome-message">
+          <p><strong>Assalamu’alaikum warahmatullahi wabarakatuh.</strong></p>
+
+          <p>Yth. Bapak/Ibu Pengusaha UMKM di Provinsi Sulawesi Barat,</p>
+
+          <p>Salam hormat.</p>
+
+          <p>Perkenalkan, saya <strong>MUH. RUSTAN AFANDI</strong>, mahasiswa Program Studi Magister Manajemen, Program Pascasarjana Universitas Muhammadiyah Mamuju.</p>
+
+          <p>Saat ini saya sedang melaksanakan penelitian tesis yang berjudul:</p>
+
+          <p><strong><em>“Pengaruh Pelatihan Peningkatan Kapasitas terhadap UMKM Naik Kelas dengan Transformasi Digital dan Kapabilitas Inovasi sebagai Variabel Mediasi pada UMKM Provinsi Sulawesi Barat.”</em></strong></p>
+
+          <p>Saya memohon kesediaan Bapak/Ibu untuk meluangkan waktu mengisi kuesioner ini sesuai dengan kondisi dan pengalaman usaha yang sebenarnya. Partisipasi Bapak/Ibu sangat berarti bagi keberhasilan penelitian ini.</p>
+
+          <p>Seluruh jawaban akan dijaga kerahasiaannya dan digunakan hanya untuk kepentingan akademik. Keikutsertaan bersifat sukarela.</p>
+
+          <p>Atas waktu, kesediaan, dan partisipasi Bapak/Ibu, saya mengucapkan <strong>terima kasih yang sebesar-besarnya.</strong></p>
+
+          <p><strong>Wassalamu’alaikum warahmatullahi wabarakatuh.</strong></p>
+        </div>
+        <div class="notice">
+          <strong>Kerahasiaan responden</strong><br>
+          Keikutsertaan bersifat sukarela. Jawaban dijaga kerahasiaannya dan
+          digunakan untuk kepentingan akademik. Anda dapat berhenti sebelum
+          mengirimkan jawaban.
+        </div>
+        <div class="field">
+          <label class="choice">
+            <input id="consent" type="checkbox">
+            <span>Saya telah membaca penjelasan dan bersedia menjadi responden penelitian.</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-tag">BAGIAN 1</div>
+        <h2>Identitas Responden</h2>
+        <p class="muted">Isi profil usaha sesuai kondisi sebenarnya.</p>
+
+        <div class="field">
+          <label class="field-label" for="nama">Nama responden (opsional)</label>
+          <input id="nama" type="text" maxlength="120" placeholder="Boleh dikosongkan">
+        </div>
+
+        <div id="profileFields"></div>
+      </section>
+
+      <section class="card progress-card">
+        <div class="progress-row">
+          <span id="progressLabel">PROGRES PENGISIAN</span>
+          <span id="progressNumber">0 / 60</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="muted" style="margin-top:9px">Pilih satu jawaban untuk setiap pernyataan.</div>
+      </section>
+
+      <div id="questionSections"></div>
+
+      <section class="card">
+        <h2>Periksa sebelum mengirim</h2>
+        <p class="muted">Pastikan persetujuan dan seluruh pertanyaan sudah diisi. Jawaban akan dikirim satu kali saat Anda menekan tombol di bawah.</p>
+        <div id="errorBox" class="error hidden" role="alert"></div>
+        <div class="actions">
+          <button class="primary" id="submitBtn" onclick="submitSurvey()">Kirim Kuesioner</button>
+        </div>
+      </section>
+    </div>
+
+    <section id="successScreen" class="card success hidden">
+      <div class="success-icon">✓</div>
+      <p>Jawaban kuesioner Anda berhasil dikirim.</p>
+      <p class="thank-you-message"><strong>Terima kasih</strong> atas waktu, perhatian, dan kesediaan Bapak/Ibu dalam berpartisipasi pada penelitian ini. Setiap jawaban yang diberikan sangat berarti untuk mendukung pengembangan UMKM di Provinsi Sulawesi Barat.</p>
+      <p class="thank-you-closing">Semoga usaha Bapak/Ibu semakin maju, berkembang, dan sukses.</p>
+      <p class="thank-you-greeting">Wassalamu’alaikum warahmatullahi wabarakatuh.</p>
+    </section>
+  </main>
+
+  <footer>Kuesioner penelitian akademik · UMKM Sulawesi Barat</footer>
+
+  <script>
+    // Ganti dengan URL Web App Google Apps Script yang berakhiran /exec.
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyR2uM0eenYX4DwRWF0dCdb8rLPSf2TFloM25qIj8g9eaikt4jY80jzZQ1VuzXC_KBqzA/exec';
+    const profiles = [
+      {id:'jenisKelamin',label:'Jenis kelamin',options:['Laki-laki','Perempuan']},
+      {id:'usia',label:'Usia',options:['Kurang dari 25 tahun','25–35 tahun','36–45 tahun','46–55 tahun','Lebih dari 55 tahun']},
+      {id:'pendidikan',label:'Pendidikan terakhir',options:['SD','SMP/SLTP','SMA/SLTA','S1','S2','S3']},
+      {id:'lamaUsaha',label:'Lama menjalankan usaha',options:['Kurang dari 2 tahun','2–5 tahun','6–10 tahun','Lebih dari 10 tahun']},
+      {id:'jenisUsaha',label:'Jenis usaha',options:['Kuliner','Perdagangan','Fashion','Kerajinan','Industri pengolahan','Jasa','Lainnya']},
+      {id:'kabupaten',label:'Kabupaten/kota',options:['Mamuju','Mamuju Tengah','Pasangkayu','Polewali Mandar','Majene','Mamasa']},
+      {id:'karyawan',label:'Jumlah karyawan',options:['1–5 orang','6–10 orang','11–15 orang','Lebih dari 15 orang']},
+      {id:'omzet',label:'Omzet usaha per tahun',options:['≤ Rp300 juta','Lebih dari Rp300 juta–Rp2,5 miliar','Lebih dari Rp2,5 miliar–Rp50 miliar','Lebih dari Rp50 miliar']},
+      {id:'pernahPelatihan',label:'Pernah mengikuti pelatihan peningkatan kapasitas?',options:['Ya','Tidak']},
+      {id:'jumlahPelatihan',label:'Jumlah pelatihan yang pernah diikuti',options:['1 kali','2–3 kali','4–5 kali','Lebih dari 5 kali','Belum pernah']}
+    ];
+
+    const groups = [
+      {
+        title:'Pelatihan Peningkatan Kapasitas',
+        subtitle:'Nilai pengalaman dan manfaat pelatihan yang Anda ikuti.',
+        items:[
+          ['Kesesuaian Materi',[
+            'Materi pelatihan sesuai dengan kebutuhan usaha saya.',
+            'Materi yang diberikan dapat diterapkan dalam pengelolaan usaha.'
+          ]],
+          ['Kompetensi Narasumber',[
+            'Narasumber menguasai materi pelatihan dengan baik.',
+            'Narasumber mampu menjelaskan materi secara mudah dipahami.'
+          ]],
+          ['Intensitas Pelatihan',[
+            'Frekuensi pelatihan yang saya ikuti sudah memadai.',
+            'Pelatihan dilakukan secara berkelanjutan.'
+          ]],
+          ['Metode Pembelajaran',[
+            'Metode pelatihan menarik dan mudah dipahami.',
+            'Pelatihan memberikan praktik yang sesuai dengan kebutuhan usaha.'
+          ]],
+          ['Pendampingan',[
+            'Saya memperoleh pendampingan setelah pelatihan selesai.',
+            'Pendampingan membantu saya mengatasi masalah usaha.'
+          ]],
+          ['Peningkatan Pengetahuan',[
+            'Pelatihan meningkatkan pengetahuan saya tentang pengelolaan usaha.',
+            'Saya memahami strategi pengembangan usaha dengan lebih baik.'
+          ]],
+          ['Peningkatan Keterampilan',[
+            'Pelatihan meningkatkan keterampilan saya dalam menjalankan usaha.',
+            'Saya mampu menerapkan teknik baru dalam usaha.'
+          ]],
+          ['Penerapan Hasil',[
+            'Saya menerapkan ilmu yang diperoleh dari pelatihan dalam usaha.',
+            'Pelatihan memberikan dampak nyata terhadap perkembangan usaha saya.'
+          ]]
+        ]
+      },
+      {
+        title:'Transformasi Digital',
+        subtitle:'Pilih jawaban sesuai pemanfaatan teknologi digital dalam usaha.',
+        items:[
+          ['Media Sosial',[
+            'Saya menggunakan media sosial untuk memasarkan produk.',
+            'Media sosial membantu meningkatkan penjualan usaha.'
+          ]],
+          ['Marketplace',[
+            'Usaha saya telah memanfaatkan marketplace.',
+            'Marketplace memperluas jangkauan pasar usaha saya.'
+          ]],
+          ['Digital Payment',[
+            'Usaha saya menerima pembayaran digital.',
+            'Pembayaran digital memudahkan transaksi dengan pelanggan.'
+          ]],
+          ['Keuangan Digital',[
+            'Saya menggunakan aplikasi pencatatan keuangan digital.',
+            'Pencatatan digital membantu pengelolaan keuangan usaha.'
+          ]],
+          ['Aplikasi Bisnis',[
+            'Saya menggunakan aplikasi digital untuk operasional usaha.',
+            'Aplikasi bisnis meningkatkan efisiensi usaha.'
+          ]],
+          ['Digital Marketing',[
+            'Saya menerapkan pemasaran digital secara rutin.',
+            'Pemasaran digital meningkatkan jumlah pelanggan.'
+          ]],
+          ['Integrasi Teknologi',[
+            'Teknologi digital telah terintegrasi dalam kegiatan usaha saya.',
+            'Pemanfaatan teknologi meningkatkan produktivitas usaha.'
+          ]]
+        ]
+      },
+      {
+        title:'Kapabilitas Inovasi',
+        subtitle:'Nilai kemampuan usaha Anda dalam mengembangkan dan menerapkan inovasi.',
+        items:[
+          ['Inovasi Produk',[
+            'Saya rutin mengembangkan produk baru.',
+            'Produk saya mengalami pembaruan sesuai kebutuhan pasar.'
+          ]],
+          ['Inovasi Proses',[
+            'Saya terus memperbaiki proses produksi.',
+            'Perubahan proses kerja meningkatkan efisiensi usaha.'
+          ]],
+          ['Inovasi Pemasaran',[
+            'Saya menggunakan strategi pemasaran yang inovatif.',
+            'Saya selalu mencari cara baru untuk menarik pelanggan.'
+          ]],
+          ['Inovasi Layanan',[
+            'Saya terus meningkatkan kualitas pelayanan pelanggan.',
+            'Saya menerima masukan pelanggan untuk memperbaiki layanan.'
+          ]],
+          ['Produk Baru',[
+            'Saya mampu menciptakan produk baru secara berkala.',
+            'Produk baru memberikan nilai tambah bagi usaha.'
+          ]],
+          ['Respons Pasar',[
+            'Saya cepat menyesuaikan usaha dengan perubahan pasar.',
+            'Saya mampu membaca peluang pasar baru.'
+          ]],
+          ['Kreativitas',[
+            'Saya memiliki banyak ide baru untuk mengembangkan usaha.',
+            'Kreativitas menjadi keunggulan usaha saya.'
+          ]]
+        ]
+      },
+      {
+        title:'UMKM Naik Kelas',
+        subtitle:'Nilai perkembangan usaha Anda dalam beberapa tahun terakhir.',
+        items:[
+          ['Omzet',[
+            'Omzet usaha saya meningkat dalam beberapa tahun terakhir.',
+            'Pendapatan usaha saya terus mengalami peningkatan.'
+          ]],
+          ['Aset',[
+            'Nilai aset usaha saya semakin meningkat.',
+            'Saya mampu menambah peralatan atau fasilitas usaha.'
+          ]],
+          ['Tenaga Kerja',[
+            'Jumlah tenaga kerja di usaha saya bertambah.',
+            'Perkembangan usaha mendorong penambahan karyawan.'
+          ]],
+          ['Legalitas',[
+            'Usaha saya telah memiliki legalitas yang lengkap.',
+            'Saya terus melengkapi dokumen legal usaha.'
+          ]],
+          ['Sertifikasi',[
+            'Produk saya telah memiliki sertifikasi yang diperlukan.',
+            'Saya berupaya memperoleh sertifikasi produk.'
+          ]],
+          ['Perluasan Pasar',[
+            'Wilayah pemasaran usaha saya semakin luas.',
+            'Produk saya telah dipasarkan di luar daerah asal.'
+          ]],
+          ['Peningkatan Kelas',[
+            'Skala usaha saya mengalami peningkatan.',
+            'Usaha saya berkembang ke kategori yang lebih tinggi.'
+          ]],
+          ['Daya Saing',[
+            'Usaha saya mampu bersaing dengan usaha sejenis.',
+            'Produk saya memiliki keunggulan dibandingkan pesaing.'
+          ]]
+        ]
+      }
+    ];
+
+    const scaleLabels = [
+      ['STS','Sangat Tidak Setuju'],
+      ['TS','Tidak Setuju'],
+      ['N','Netral'],
+      ['S','Setuju'],
+      ['SS','Sangat Setuju']
+    ];
+
+    let questionCount = 0;
+    const totalQuestions = groups.reduce(
+      (sum, g) => sum + g.items.reduce((n, item) => n + item[1].length, 0), 0
+    );
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[c]));
+    }
+
+    function renderProfiles() {
+      const host = document.getElementById('profileFields');
+      host.innerHTML = profiles.map(p => `
+        <div class="field">
+          <label class="field-label">${escapeHtml(p.label)}</label>
+          <div class="choice-list">
+            ${p.options.map(option => `
+              <label class="choice">
+                <input type="radio" name="${p.id}" value="${escapeHtml(option)}">
+                <span>${escapeHtml(option)}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderQuestions() {
+      const host = document.getElementById('questionSections');
+      host.innerHTML = groups.map((group, gi) => {
+        let sectionNumber = gi + 2;
+        let content = '';
+        group.items.forEach(([subheading, questions]) => {
+          content += `<h3 style="margin-top:20px">${escapeHtml(subheading)}</h3>`;
+          questions.forEach(question => {
+            questionCount++;
+            const id = questionCount;
+            content += `
+              <div class="question">
+                <div class="q-title">
+                  <span class="q-number">${id}.</span>
+                  <span>${escapeHtml(question)}</span>
+                </div>
+                <div class="scale">
+                  ${scaleLabels.map((label, index) => `
+                    <label>
+                      <input type="radio" name="Q${id}" value="${index+1}">
+                      <strong>${index+1}</strong>
+                      <span>${label[0]}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>`;
+          });
+        });
+        return `
+          <section class="card">
+            <div class="section-tag">BAGIAN ${sectionNumber} DARI 5</div>
+            <h2>${escapeHtml(group.title)}</h2>
+            <p class="muted">${escapeHtml(group.subtitle)}</p>
+            ${content}
+            <div class="scale-legend">
+              <span>1 — Sangat Tidak Setuju</span>
+              <span>2 — Tidak Setuju</span>
+              <span>3 — Netral</span>
+              <span>4 — Setuju</span>
+              <span>5 — Sangat Setuju</span>
+            </div>
+          </section>`;
+      }).join('');
+    }
+
+    function updateProgress() {
+      let answered = 0;
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (document.querySelector(`input[name="Q${i}"]:checked`)) answered++;
+      }
+      document.getElementById('progressNumber').textContent =
+        `${answered} / ${totalQuestions}`;
+      document.getElementById('progressFill').style.width =
+        `${answered / totalQuestions * 100}%`;
+    }
+
+    function getRadioValue(id) {
+      const selected = document.querySelector(`input[name="${id}"]:checked`);
+      return selected ? selected.value : '';
+    }
+
+    function showError(message) {
+      const box = document.getElementById('errorBox');
+      box.textContent = message;
+      box.classList.remove('hidden');
+      box.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    function submitSurvey() {
+      const errorBox = document.getElementById('errorBox');
+      errorBox.classList.add('hidden');
+
+      if (!document.getElementById('consent').checked) {
+        showError('Mohon berikan persetujuan sebelum mengirimkan kuesioner.');
+        return;
+      }
+
+      const profil = {};
+      profiles.forEach(p => profil[p.id] = getRadioValue(p.id));
+
+      const missingProfile = profiles.find(p => !profil[p.id]);
+      if (missingProfile) {
+        showError('Mohon lengkapi profil: ' + missingProfile.label + '.');
+        return;
+      }
+
+      const jawaban = {};
+      for (let i = 1; i <= totalQuestions; i++) {
+        jawaban['Q' + i] = getRadioValue('Q' + i);
+        if (!jawaban['Q' + i]) {
+          showError('Masih ada pernyataan yang belum dijawab. Periksa bagian ' + i + '.');
+          const unanswered = document.querySelector(`input[name="Q${i}"]`);
+          if (unanswered) {
+            unanswered.closest('.question').scrollIntoView({
+              behavior:'smooth', block:'center'
+            });
+          }
+          return;
+        }
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Mengirim jawaban...';
+
+      const data = {
+        persetujuan: true,
+        profil: {
+          nama: document.getElementById('nama').value.trim(),
+          ...profil
+        },
+        jawaban: jawaban
+      };
+
+      const form = document.getElementById('appsScriptForm');
+      const endpoint = APPS_SCRIPT_URL;
+      if (!endpoint || endpoint === 'https://script.google.com/macros/s/AKfycbyR2uM0eenYX4DwRWF0dCdb8rLPSf2TFloM25qIj8g9eaikt4jY80jzZQ1VuzXC_KBqzA/exec') {
+        btn.disabled = false;
+        btn.textContent = 'Kirim Kuesioner';
+        showError('Alamat Web App Google Apps Script belum dipasang. Hubungi peneliti.');
+        return;
+      }
+
+      form.action = endpoint;
+      document.getElementById('payloadField').value = JSON.stringify(data);
+      window.addEventListener('message', function onAppsScriptMessage(event) {
+        if (!event.data || event.data.type !== 'KUESIONER_RESULT') return;
+        window.removeEventListener('message', onAppsScriptMessage);
+        if (event.data.success) {
+          document.getElementById('survey').classList.add('hidden');
+          document.getElementById('successScreen').classList.remove('hidden');
+          window.scrollTo({top:0, behavior:'smooth'});
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Kirim Kuesioner';
+          showError(event.data.message || 'Pengiriman gagal. Silakan coba kembali.');
+        }
+      }, {once:false});
+      form.submit();
+    }
+
+    renderProfiles();
+    renderQuestions();
+    document.addEventListener('change', event => {
+      if (event.target.matches('input[type="radio"]')) updateProgress();
+    });
+    updateProgress();
+  </script>
+</body>
+</html>
