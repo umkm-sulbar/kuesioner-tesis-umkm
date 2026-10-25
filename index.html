@@ -189,14 +189,16 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      min-height: 59px;
+      min-height: 76px;
       border: 1px solid var(--border);
       border-radius: 10px;
       cursor: pointer;
       color: var(--muted);
-      font-size: 10px;
+      font-size: 11px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
       text-align: center;
-      padding: 6px 2px;
+      padding: 7px 4px;
     }
     .scale label:has(input:checked) {
       border-color: var(--green2);
@@ -266,8 +268,12 @@
       main { padding: 14px 10px 30px; }
       .card { padding: 17px 14px; border-radius: 15px; }
       .choice-list { grid-template-columns: 1fr; }
-      .scale { gap: 4px; }
-      .scale label { font-size: 9px; min-height: 57px; }
+      .scale {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+      .scale label { font-size: 12px; min-height: 64px; }
+      .scale label:last-child { grid-column: 1 / -1; }
     }
   </style>
 </head>
@@ -285,7 +291,7 @@
     </div>
   </header>
 
-  <!-- Endpoint Apps Script akan diisi setelah Code.gs memiliki doPost(e). -->
+  <!-- Form tersembunyi untuk mengirim jawaban ke Google Apps Script. -->
   <iframe name="appsScriptFrame" id="appsScriptFrame" class="hidden" title="Pengiriman jawaban"></iframe>
   <form id="appsScriptForm" method="POST" target="appsScriptFrame" class="hidden">
     <input type="hidden" name="payload" id="payloadField">
@@ -540,11 +546,11 @@
     ];
 
     const scaleLabels = [
-      ['Sangat Tidak Setuju','Sangat Tidak Setuju'],
-      ['Tidak Setuju','Tidak Setuju'],
-      ['Netral','Netral'],
-      ['Setuju','Setuju'],
-      ['Sangat Setuju','Sangat Setuju']
+      'Sangat Tidak Setuju',
+      'Tidak Setuju',
+      'Netral',
+      'Setuju',
+      'Sangat Setuju'
     ];
 
     let questionCount = 0;
@@ -596,7 +602,7 @@
                     <label>
                       <input type="radio" name="Q${id}" value="${index+1}">
                       <strong>${index+1}</strong>
-                      <span>${label[0]}</span>
+                      <span>${escapeHtml(label)}</span>
                     </label>
                   `).join('')}
                 </div>
