@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -692,7 +691,7 @@
 
       const form = document.getElementById('appsScriptForm');
       const endpoint = APPS_SCRIPT_URL;
-      if (!endpoint || endpoint === 'https://script.google.com/macros/s/AKfycbyR2uM0eenYX4DwRWF0dCdb8rLPSf2TFloM25qIj8g9eaikt4jY80jzZQ1VuzXC_KBqzA/exec') {
+      if (!endpoint) {
         btn.disabled = false;
         btn.textContent = 'Kirim Kuesioner';
         showError('Alamat Web App Google Apps Script belum dipasang. Hubungi peneliti.');
