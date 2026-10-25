@@ -540,11 +540,11 @@
     ];
 
     const scaleLabels = [
-      ['STS','Sangat Tidak Setuju'],
-      ['TS','Tidak Setuju'],
-      ['N','Netral'],
-      ['S','Setuju'],
-      ['SS','Sangat Setuju']
+      ['Sangat Tidak Setuju','Sangat Tidak Setuju'],
+      ['Tidak Setuju','Tidak Setuju'],
+      ['Netral','Netral'],
+      ['Setuju','Setuju'],
+      ['Sangat Setuju','Sangat Setuju']
     ];
 
     let questionCount = 0;
@@ -691,18 +691,22 @@
 
       const form = document.getElementById('appsScriptForm');
       const endpoint = APPS_SCRIPT_URL;
-      if (!endpoint || !endpoint.startsWith('https://script.google.com/macros/s/')) {
-  btn.disabled = false;
-  btn.textContent = 'Kirim Kuesioner';
-  showError('URL Google Apps Script tidak valid. Silakan hubungi peneliti.');
-  return;
-}
+      if (!endpoint) {
+        btn.disabled = false;
+        btn.textContent = 'Kirim Kuesioner';
+        showError('Alamat Web App Google Apps Script belum dipasang. Hubungi peneliti.');
+        return;
+      }
 
       form.action = endpoint;
       document.getElementById('payloadField').value = JSON.stringify(data);
-      window.addEventListener('message', function onAppsScriptMessage(event) {
+      let responseReceived = false;
+      const onAppsScriptMessage = function(event) {
         if (!event.data || event.data.type !== 'KUESIONER_RESULT') return;
+        responseReceived = true;
         window.removeEventListener('message', onAppsScriptMessage);
+        window.clearTimeout(submissionTimeout);
+
         if (event.data.success) {
           document.getElementById('survey').classList.add('hidden');
           document.getElementById('successScreen').classList.remove('hidden');
@@ -712,7 +716,17 @@
           btn.textContent = 'Kirim Kuesioner';
           showError(event.data.message || 'Pengiriman gagal. Silakan coba kembali.');
         }
-      }, {once:false});
+      };
+
+      window.addEventListener('message', onAppsScriptMessage);
+      const submissionTimeout = window.setTimeout(function() {
+        if (responseReceived) return;
+        window.removeEventListener('message', onAppsScriptMessage);
+        btn.disabled = false;
+        btn.textContent = 'Kirim Kuesioner';
+        showError('Belum ada konfirmasi dari server. Periksa koneksi Apps Script dan coba lagi setelah memastikan jawaban belum tersimpan.');
+      }, 20000);
+
       form.submit();
     }
 
